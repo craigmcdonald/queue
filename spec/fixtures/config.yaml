@@ -1,0 +1,1 @@
+store_path: <%= "#{ENV['ORDERLY_TEST_DIR']}/data" %>

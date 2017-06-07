@@ -12,28 +12,24 @@ module Orderly
     end
 
     def next_vals
-      return [] unless @next
-      node = @next
-      nexts = []
-      until !node do
-        nexts << node.val
-        node = node.next
-      end
-      nexts
+      traverse_nodes(@next,'next')
     end
 
     def prev_vals
-      return [] unless prev
-      node = prev
-      prevs = []
-      until !node do
-        prevs << node.val
-        node = node.prev
-      end
-      prevs.reverse
+      traverse_nodes(@prev,'prev').reverse
     end
 
     private
+
+    def traverse_nodes(node,direction)
+      return [] unless node
+      array = []
+      until !node do
+        array << node.val
+        node = node.send(direction)
+      end
+      array
+    end
 
     def valid_prev_or_next(node,error,txt)
       return node if node.is_a? Node
